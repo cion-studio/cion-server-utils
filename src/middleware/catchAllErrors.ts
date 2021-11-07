@@ -1,7 +1,15 @@
-const catchAllErrors = (defaultErrorMessage:string = 'Something went wrong!') => (_req:any, res: any, next:any) => {
+import {Request, Response, NextFunction} from 'express'
+
+type ErrorHandler = (req:Request, res:Response, next:NextFunction, err:any) => any
+
+const defaultErrorHandler = (_req:Request, res:Response) => res.status(500).json({ error: 'Something went wrong!' })
+
+const catchAllErrors = (onError:ErrorHandler = defaultErrorHandler) => (req:any, res: any, next:any) => {
 	try {
 		next()
 	} catch (err) {
-		return res.status(500).json({ error: defaultErrorMessage })
+		onError(req, res, next, err)
 	}
 }
+
+export default catchAllErrors
