@@ -1,6 +1,6 @@
 {
   "name": "cion-server-utils",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Various utilities and types used in Cion Studio projects",
   "main": "lib/index.js",
   "scripts": {
